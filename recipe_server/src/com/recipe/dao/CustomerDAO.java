@@ -10,7 +10,7 @@ import com.recipe.exception.DuplicatedException;
 import com.recipe.exception.FindException;
 import com.recipe.exception.ModifyException;
 import com.recipe.exception.RemoveException;
-import com.recipe.sql.MyConnection;
+import com.recipe.jdbc.MyConnection;
 import com.recipe.vo.Customer;
 import com.recipe.vo.Postal;
 
@@ -72,7 +72,7 @@ public class CustomerDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			con = com.recipe.sql.MyConnection.getConnection();
+			con = MyConnection.getConnection();
 		} catch (ClassNotFoundException | SQLException e) {
 			throw new FindException("selectById:" + e.getMessage());
 		}
