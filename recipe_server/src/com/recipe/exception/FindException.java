@@ -1,7 +1,6 @@
 package com.recipe.exception;
 
 public class FindException extends Exception {
-
 	public FindException() {
 		super();
 	}
@@ -9,5 +8,5 @@ public class FindException extends Exception {
 	public FindException(String message) {
 		super(message);
 	}
-
+	
 }
