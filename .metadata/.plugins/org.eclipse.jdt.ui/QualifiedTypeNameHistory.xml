@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.recipe.vo.Postal"/>
-<fullyQualifiedTypeName name="com.recipe.vo.Customer"/>
-<fullyQualifiedTypeName name="com.recipe.vo.RecipeInfo"/>
-<fullyQualifiedTypeName name="com.recipe.vo.Favorite"/>
-<fullyQualifiedTypeName name="com.recipe.vo.Ingredient"/>
-<fullyQualifiedTypeName name="com.recipe.vo.Point"/>
 <fullyQualifiedTypeName name="java.lang.Runnable"/>
 <fullyQualifiedTypeName name="com.recipe.control.CustomerAcceptThread"/>
 <fullyQualifiedTypeName name="com.recipe.control.RdAcceptThread"/>
+<fullyQualifiedTypeName name="com.recipe.control.RdFrontThread"/>
 <fullyQualifiedTypeName name="java.net.ServerSocket"/>
+<fullyQualifiedTypeName name="java.net.Socket"/>
+<fullyQualifiedTypeName name="com.recipe.control.CustomerFrontThread"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Postal"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Customer"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Ingredient"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Favorite"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Review"/>
+<fullyQualifiedTypeName name="com.recipe.vo.RD"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.text.DateFormat"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Point"/>
+<fullyQualifiedTypeName name="com.recipe.vo.RecipeIngredient"/>
+<fullyQualifiedTypeName name="com.recipe.vo.RecipeInfo"/>
+<fullyQualifiedTypeName name="com.recipe.vo.PurchaseDetail"/>
+<fullyQualifiedTypeName name="com.recipe.vo.Purchase"/>
+<fullyQualifiedTypeName name="com.recipe.service.AccountService"/>
+<fullyQualifiedTypeName name="com.recipe.service.FavoriteService"/>
+<fullyQualifiedTypeName name="com.recipe.service.PostService"/>
+<fullyQualifiedTypeName name="com.recipe.service.PurchaseService"/>
+<fullyQualifiedTypeName name="com.recipe.service.RDAccountService"/>
+<fullyQualifiedTypeName name="com.recipe.service.RecipeService"/>
+<fullyQualifiedTypeName name="com.recipe.service.ReviewService"/>
+<fullyQualifiedTypeName name="com.recipe.view.RecipeSearchView"/>
+<fullyQualifiedTypeName name="com.recipe.view.CustomerMainView"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="com.recipe.io.Menu"/>
+<fullyQualifiedTypeName name="com.recipe.view.LoginView"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="com.recipe.io.DataIO"/>
 </qualifiedTypeNameHistroy>
