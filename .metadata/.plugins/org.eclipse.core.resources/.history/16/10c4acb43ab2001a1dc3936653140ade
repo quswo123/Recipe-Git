@@ -1,0 +1,11 @@
+package com.recipe.vo;
+
+public class RecipeInfo {
+	private int recipeCode; //레시피코드
+	private String recipeName; //레시피이름
+	private String recipeSumm; //레시피요약
+	private int recipePrice; //레시피가격
+	private String recipeProcess; //레시피조리과정
+	private char recipeStatus; // 레시피사용여부 1:활성화, 0:비활성화
+	private String rdId; //아이디
+}

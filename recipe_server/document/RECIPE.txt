@@ -1,0 +1,253 @@
+--code 로 찾기
+SELECT * FROM RECIPE_INFO WHERE recipe_code = '134';
+
+--name 으로 찾기
+SELECT * FROM RECIPE_INFO WHERE recipe_name LIKE '%주먹밥%';
+
+--재료로 찾기
+SELECT RI.RECIPE_CODE, RIN.RECIPE_NAME
+FROM RECIPE_INGREDIENT RI
+JOIN RECIPE_INFO RIN ON RI.recipe_code = RIN.recipe_code
+JOIN INGREDIENT ING ON ING.ing_code = RI.ing_code
+WHERE ING.ing_name LIKE '%김치%';
+
+--좋아요/싫어요
+SELECT * 
+FROM POINT ;
+
+--상세정보 보기
+--SELECT rif.recipe_name, ri.recipe_code, ing.ing_name, fav.like_count, fav.dislike_counT
+--FROM recipe_ingredient ri
+--JOIN ingredient ing on ing.ing_code = ri.ing_code
+--JOIN POINT fav on fav.recipe_code = ri.recipe_code
+--JOIN recipe_info rif on ri.recipe_code = rif.recipe_code
+--WHERE RI.recipe_code = '134';
+
+
+/* 후기목록 */
+-- recipe_code = 134
+-- customer_Is_Enable = 'Y'
+SELECT * 
+  FROM REVIEW
+  WHERE RECIPE_CODE = '134' 
+      AND CUSTOMER_ID IN (SELECT CUSTOMER_ID 
+                               FROM CUSTOMER  
+                             WHERE CUSTOMER_STATUS = '1' );
+/* 후기등록 */
+-- customer_id 
+-- recipe_code
+-- review_comment
+-- review_date 
+INSERT  INTO REVIEW (customer_id
+                            , recipe_code
+                            , review_comment
+                            , review_date) 
+          VALUES ('tester'
+                        , '24'
+                        , '흠~바질향이 너무 좋네요!'
+                        , sysdate
+);
+
+/* 즐겨찾기추가 */
+INSERT INTO FAVORITE (customer_id , recipe_code) VALUES ( 'tester' , 24 );
+
+/* 즐겨찾기 목록 */
+SELECT * 
+  FROM FAVORITE 
+  WHERE CUSTOMER_ID = 'tester' 
+      AND RECIPE_CODE IN (SELECT RECIPE_CODE
+                                     FROM RECIPE_INFO 
+                                   WHERE RECIPE_STATUS = '1'
+); 
+/* 즐겨찾기 삭제*/
+DELETE FROM FAVORITE WHERE CUSTOMER_ID = 'tester' AND RECIPE_CODE = '24' ;
+
+
+/* 나의 후기목록 */
+SELECT * FROM REVIEW 
+WHERE CUSTOMER_ID = 'tester' 
+  AND recipe_code IN (SELECT recipe_code 
+                               FROM RECIPE_INFO 
+                              WHERE RECIPE_STATUS = '1' ) ; 
+/* 나의 후기 삭제*/
+DELETE FROM REVIEW WHERE CUSTOMER_ID = 'tester' AND RECIPE_CODE = '24';
+
+
+--회원가입
+INSERT INTO customer(customer_id, customer_pwd, customer_email, customer_name, customer_phone, customer_addr, customer_stauts) VALUES ('id1','pw1','abcd@naver.com','백영민','010-1234-4321','용인시 기흥구 동백동',1);
+
+--내 정보보기
+SELECT * FROM customer WHERE customer_id = 'tester';
+
+--내 정보 수정
+UPDATE customer 
+SET customer_pwd= 'pw01'
+   ,customer_email = dbca@naver.com
+   ,customer_name = '유산슬'
+   ,customer_phone = '010-1234-5678'
+   ,customer_addr = '서울시 잠실동'
+   ,customer_status = 0
+WHERE customer_id='id1';
+
+--회원 탈퇴
+UPDATE customer 
+SET customer_status = 0  
+WHERE customer_id = 'id1';    
+
+--나의 구매상세내역
+select 
+    p.customer_id,
+    p.purchase_date,
+    pd.purchase_quantity,
+    r.review_comment
+from
+    purchase p
+    join purchase_detail pd on ( p.purchase_code = pd.purchase_code)
+    left join review r on ( p.customer_id = r.customer_id and pd.recipe_code = r.recipe_code)
+    where pd.recipe_code = '134';
+
+
+--나의 구매내역
+select 
+    p.customer_id,
+    p.purchase_date,
+    pd.purchase_quantity,
+    r.review_comment
+from
+    purchase p
+    join purchase_detail pd on ( p.purchase_code = pd.purchase_code)
+    left join review r on ( p.customer_id = r.customer_id and pd.recipe_code = r.recipe_code);
+    
+
+--구매하기
+INSERT INTO PURCHASE VALUES (PURCHASE_SEQ.NEXTVAL,'tester',SYSDATE); 
+INSERT INTO PURCHASE_DETAIL VALUES(PURCHASE_SEQ.CURRVAL,'134',3);
+
+--R&D 계정삭제 추가 조회 수정
+INSERT INTO rd(rd_id, rd_pwd, rd_team_name, rd_phone, rd_manager_name, rd_status) 
+VALUES ("id1", "p1", "AT", "010-1234-4861", "홍길동", '1'); SELECT rd_id, rd_pwd FROM rd;
+UPDATE rd SET rd_pwd = "p12" WHERE rd_id = "id1"; UPDATE rd SET rd_status = 0 WHERE rd_id = "id1삭제";
+
+--로긴
+SELECT id, pwd 
+FROM customer where id = '?';
+
+
+--레시피 등록
+insert into recipe_info(recipe_code) VALUES (select max(recipe_code) +1 FROM recipe_info);
+UPDATE Recipe_info set recipe_name = '?' where recipe_code = '새로운 코드';
+UPDATE recipe_info SET recipe_summ='호박고구마를 신나게 요리한다.' WHERE recipe_code='코드추가한값';
+UPDATE recipe_info SET recipe_price=99900 WHERE recipe_code='코드추가한값';
+
+
+--recipe_process부분
+UPDATE recipe_info SET recipe_status='0' WHERE recipe_code='코드추가한값';
+UPDATE recipe_info SET re_id='id9' WHERE recipe_code='코드추가한값';
+
+INSERT INTO RECIPE_INGREDIENT VALUES ('1500', 
+NVL((SELECT ING_CODE  FROM INGREDIENT ic where ic.ing_name = '김치'), 
+(select max(ing_code) +1 FROM ingredient)));
+--*새로운 재료코드가 만들어질때*
+INSERT INTO INGREDIENT VALUES ('재료코드','재료이름');
+
+
+-- 레시피 등록
+-------------
+-- 0. 검증 쿼리 (레시피명)
+SELECT COUNT(1) cnt FROM RECIPE_INFO WHERE RECIPE_NAME = '돈까스냉면';
+
+-- 1. 레시피 재료 정보를 INSERT 한다.
+-- SELECT ING_CODE FROM INGREDIENT WHERE ING_NAME = '돼지고기';
+
+MERGE INTO INGREDIENT 
+USING DUAL
+   ON (ING_NAME = '돼지고기')
+WHEN NOT MATCHED THEN
+    INSERT (ING_CODE, ING_NAME) 
+    VALUES ((SELECT MAX(ING_CODE) + 1 FROM INGREDIENT), '돼지고기');
+
+-- 2. 재료 코드 리스트를 조회한다.
+SELECT ING_CODE FROM INGREDIENT WHERE ING_NAME IN ('돼지고기', '빵가루', '계란', '밀가루');
+-> 16,26,65,178
+
+-- 3. 레시피 기본정보를 insert 한다.
+INSERT INTO RECIPE_INFO VALUES((SELECT MAX(RECIPE_CODE) + 1 FROM RECIPE_INFO), '레시피명', '요리설명', 1000, '', 'Y', 'id9');
+
+-- SELECT * FROM RECIPE_INFO WHERE RECIPE_CODE = 195454;
+-- DELETE FROM RECIPE_INFO WHERE RECIPE_CODE = 195454;
+
+-- 4. 레시피 코드를 조회한다.
+SELECT RECIPE_CODE FROM RECIPE_INFO WHERE RECIPE_NAME = '돈까스';  
+-> 49
+
+-- 5. 재료코드 리스트 반복문을 수행하면서 (레시피코드 - 재료코드) 레시피 재료테이블에 등록한다.
+for ( ING_CODE list )
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 16);
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 26);
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 65);
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 178);
+
+
+-------------
+-- 레시피 수정
+-------------
+-- SELECT * FROM RECIPE_INFO WHERE RECIPE_NAME = '돈까스';
+-- RECIPE_CODE : 49
+
+-- 1. 레시피 재료 데이터 삭제 (수정하려는 레시피 코드 기준으로)
+-- SELECT * FROM RECIPE_INGREDIENT WHERE RECIPE_CODE = 49;
+DELETE FROM RECIPE_INGREDIENT WHERE RECIPE_CODE = 49;
+
+-- 2. 레시피 내용 UPDATE
+UPDATE RECIPE_INFO SET 업데이트~ WHERE RECIPE_NAME = '돈까스';
+
+-- 3. 재료 등록
+
+-- 3-1. 레시피 재료 정보를 INSERT 한다.
+SELECT ING_CODE FROM INGREDIENT WHERE ING_NAME = '새우살';
+MERGE INTO INGREDIENT 
+USING DUAL
+   ON (ING_NAME = '새우살')
+WHEN NOT MATCHED THEN
+    INSERT (ING_CODE, ING_NAME) 
+    VALUES ((SELECT MAX(ING_CODE) + 1 FROM INGREDIENT), '새우살');
+
+-- 3-2. 재료 코드 리스트를 조회한다.
+SELECT ING_CODE FROM INGREDIENT WHERE ING_NAME IN ('돼지고기','빵가루','계란','밀가루');
+-> 16,26,65,178
+
+-- 3-3. 재료코드 리스트 반복문을 수행하면서 (레시피코드 - 재료코드) 레시피 재료테이블에 등록한다.
+for ( ING_CODE list )
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 16);
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 26);
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 65);
+INSERT INTO RECIPE_INGREDIENT VALUES (49, 178);
+
+
+-------------
+-- 레시피 삭제
+-------------
+SELECT * FROM RECIPE_INFO WHERE RECIPE_NAME = '돈까스';
+RECIPE_CODE : 49
+
+-- 1. 레시피 재료 데이터 삭제 (수정하려는 레시피 코드 기준으로)
+DELETE FROM RECIPE_INGREDIENT WHERE RECIPE_CODE = 49;
+
+— 2. 레시피 삭제
+DELETE FROM RECIPE_INFO WHERE RECIPE_CODE = 49;
+
+——————
+—————— 레시피 목록보기
+——————
+SELECT recipe_code 코드번호, recipe_name 레시피명 FROM RECIPE_INFO;
+
+
+
+--추천 레시피
+SELECT RECIPE_NAME,RECIPE_SUMM, RECIPE_PRICE, RECIPE_PROCESS FROM RECIPE_INFO
+WHERE RECIPE_CODE=(SELECT RECIPE_CODE 
+FROM (SELECT RECIPE_CODE FROM POINT ORDER BY LIKE_COUNT DESC, DISLIKE_COUNT ASC) WHERE ROWNUM = 1);
+--후기가 가장 많은 레시피정보
+SELECT RECIPE_NAME,RECIPE_SUMM, RECIPE_PRICE, RECIPE_PROCESS 
+FROM RECIPE_INFO WHERE RECIPE_CODE=(SELECT MAX(RECIPE_CODE) FROM REVIEW);
+

@@ -1,0 +1,5 @@
+package com.recipe.dao;
+
+public interface PurchaseDAO {
+
+}

@@ -1,0 +1,7 @@
+package com.recipe.vo;
+
+public class Point {
+	int recipeCode; //레시피코드
+	int likeCount; //좋아요개수
+	int disLikeCount; //싫어요개수
+}

@@ -1,0 +1,26 @@
+package com.recipe.vo;
+
+public class Postal {
+	private String buildingno; //건물관리번호 pk
+	private String zipcode;  //우편번호
+	private String sido;
+	private String sigungu;
+	private String eupmyun;
+	private String dorocode;
+	private String doro;
+	private String jiha;
+	private String building1;
+	private String building2;
+	private String daryang;
+	private String building;
+	private String dongcode;
+	private String dong;
+	private String ri;
+	private String dongadmin;
+	private String san;
+	private String zibun1;
+	private String zibunserical;
+	private String zibun2;
+	private String zipIdcode;
+	private String zipcodeserial;
+}

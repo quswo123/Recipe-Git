@@ -1,0 +1,10 @@
+package com.recipe.vo;
+
+public class RD {
+	private String rdId; //아이디
+	private String rdPwd; //비밀번호
+	private String rdManagerName;//담당자이름
+	private String rdTeamName;//부서이름
+	private String rdPhone;//전화번호
+	private char rdStatus; //RD계정사용여부 1:활성화, 0:비활성화
+}

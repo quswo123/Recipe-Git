@@ -1,0 +1,7 @@
+package com.recipe.vo;
+
+public class Ingredient {
+	private int ingCode; //재료코드
+	private String ingName; //재료이름
+	
+}

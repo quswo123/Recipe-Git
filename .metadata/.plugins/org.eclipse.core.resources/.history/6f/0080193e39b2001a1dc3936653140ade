@@ -1,0 +1,7 @@
+package com.recipe.vo;
+
+public class PurchaseDetail {
+	private int purchaseCode; //구매코드
+	private int purchaseDetailQuantity; //구매수량
+	private String recipeCode; //레시피코드
+}

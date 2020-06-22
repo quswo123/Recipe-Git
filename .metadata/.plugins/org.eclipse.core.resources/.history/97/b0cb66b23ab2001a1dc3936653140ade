@@ -1,0 +1,8 @@
+package com.recipe.vo;
+import java.util.Date;
+
+public class Purchase {
+	private int purchaseCode; //구매코드
+	private String customerId; //고객ID
+	private Date purchaseDate; //구매일자
+}

@@ -1,0 +1,11 @@
+package com.recipe.vo;
+
+public class Customer {
+	private String customerId; //고객ID
+	private String customerPwd; //고객비밀번호
+	private String customerEmail; //고객이메일
+	private String customerName; //고객이름
+	private String customerPhone; //고객전화번호
+	private String customerAddr; //고객상세주소
+	private int building; //고객건물번호
+}

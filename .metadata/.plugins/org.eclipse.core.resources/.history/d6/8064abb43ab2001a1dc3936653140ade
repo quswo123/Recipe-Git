@@ -1,0 +1,6 @@
+package com.recipe.vo;
+
+public class Favorite {
+	private String customerId; //고객ID
+	private int recipeCode; //레시피코드
+}

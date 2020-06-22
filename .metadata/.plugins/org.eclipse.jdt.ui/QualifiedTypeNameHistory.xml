@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.recipe.vo.Postal"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Customer"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.RecipeInfo"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Favorite"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Ingredient"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Point"/>
+</qualifiedTypeNameHistroy>

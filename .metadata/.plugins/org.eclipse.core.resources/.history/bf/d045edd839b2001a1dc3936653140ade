@@ -1,0 +1,13 @@
+package com.recipe.vo;
+
+import java.util.List;
+
+public class RecipeInfo {
+	private int recipeCode; //레시피코드
+	private String recipeName; //레시피이름
+	private String recipeSumm; //레시피요약
+	private double recipePrice; //레시피가격
+	private String recipeProcess; //레시피조리과정
+	private Point point; //좋아요
+	private List<RecipeIngredient> ingredients; //레시피재료
+}

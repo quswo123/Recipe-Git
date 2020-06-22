@@ -1,0 +1,9 @@
+package com.recipe.vo;
+import java.util.Date;
+
+public class Review {
+	private String customerId; //고객아이디
+	private int recipeCode; //레시피코드
+	private String reviewComment; //후기내용
+	private Date reviewDate; //후기작성일자
+}
