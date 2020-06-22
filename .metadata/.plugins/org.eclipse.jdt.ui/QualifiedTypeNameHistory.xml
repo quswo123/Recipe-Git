@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.recipe.vo.Postal"/>
-    <fullyQualifiedTypeName name="com.recipe.vo.Customer"/>
-    <fullyQualifiedTypeName name="com.recipe.vo.RecipeInfo"/>
     <fullyQualifiedTypeName name="com.recipe.vo.Favorite"/>
-    <fullyQualifiedTypeName name="com.recipe.vo.Ingredient"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.RD"/>
     <fullyQualifiedTypeName name="com.recipe.vo.Point"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Ingredient"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.RecipeIngredient"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Postal"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Customer"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="com.recipe.jdbc.MyConnection"/>
+    <fullyQualifiedTypeName name="com.recipe.dao.PurchaseDAO"/>
+    <fullyQualifiedTypeName name="com.recipe.exception.FindException"/>
+    <fullyQualifiedTypeName name="com.recipe.exception.AddException"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="com.recipe.view.MyReviewListView"/>
+    <fullyQualifiedTypeName name="com.recipe.view.PurchaseListVIew"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Review"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.Purchase"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.PurchaseDetail"/>
+    <fullyQualifiedTypeName name="com.recipe.vo.RecipeInfo"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>
