@@ -57,8 +57,6 @@ public class PurchaseDAO {
 				Purchase p = new Purchase();
 				RecipeInfo r = new RecipeInfo();
 				PurchaseDetail pd = new PurchaseDetail();
-				Review rv = new Review();
-				rv.setReviewComment(rs.getString("review_comment"));
 				
 				r.setRecipeCode(rs.getInt("recipe_code"));
 				r.setRecipeName(rs.getString("recipe_name"));

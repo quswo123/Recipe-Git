@@ -13,8 +13,8 @@ public class MyConnection {
 		
 		Class.forName(className);
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String user = "test";
-		String password = "test";
+		String user = "recipe";
+		String password = "recipe";
 		con = DriverManager.getConnection(url, user, password);
 		System.out.println("DB와 연결성공!");
 		
