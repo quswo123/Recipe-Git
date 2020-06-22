@@ -31,7 +31,7 @@ public class RecipeInfoDAO {
 				+ "JOIN POINT PT ON RI.RECIPE_CODE = PT.RECIPE_CODE\r\n" + "WHERE RI.recipe_code = ?";
 		List<RecipeIngredient> ingList = new ArrayList<>();
 		RecipeInfo recipeInfo = new RecipeInfo();
-		int prevCode = 0;
+		int prevCode = 0; //
 		try {
 			pstmt = con.prepareStatement(selectByCodeSQL);
 			pstmt.setInt(1, recipeCode);
@@ -42,7 +42,9 @@ public class RecipeInfoDAO {
 				String ingName = rs.getString("ing_name");
 				Ingredient ingredient = new Ingredient(ingCode, ingName);
 				RecipeIngredient recipeIng = new RecipeIngredient(ingredient);
+				//와인문 돌때마다 재료코드, 이름 -> Ingredient 에 넣고 -> 리스트에 넣어주기
 				ingList.add(recipeIng);
+				//처음 와일문 돌때만 RecipeInfo에 값 넣어주기
 				if (prevCode != rCode) {
 					recipeInfo.setRecipeCode(rCode);
 					recipeInfo.setRecipeName(rs.getString("recipe_name"));
@@ -89,7 +91,7 @@ public class RecipeInfoDAO {
 			int prevCode = 0;
 			while(rs.next()) {				
 				int rCode = rs.getInt("recipe_code");
-								
+				//레시피코드가 다를때만 RecipeInfo 객체 생성해서 값 넣어주고 재료리스트 참조시키기				
 				if (prevCode != rCode) {					
 					RecipeInfo recipeInfo2 = new RecipeInfo();
 					ingList = new ArrayList<>();
@@ -99,13 +101,14 @@ public class RecipeInfoDAO {
 					recipeInfo2.setRecipePrice(rs.getInt("recipe_price"));
 					recipeInfo2.setRecipeSumm(rs.getString("recipe_summ"));
 					recipeInfo2.setRecipeProcess(rs.getString("recipe_process"));
-					recipeInfo2.setIngredients(ingList);
-					
+					recipeInfo2.setIngredients(ingList);					
 					Point pt = new Point(rCode, rs.getInt("like_count"), rs.getInt("dislike_count"));
 					recipeInfo2.setPoint(pt);
 					recipeInfo.add(recipeInfo2);
+					//새로 객체 생성할때마다 전코드 값을 새로운값으로 대입해주기
 					prevCode = rCode;
 				}
+				//와인문 돌때마다 재료코드, 이름 -> Ingredient 에 넣고 -> 리스트에 넣어주기
 				int ingCode = rs.getInt("ing_code");
 				String ingName = rs.getString("ing_name");
 				Ingredient ingredient = new Ingredient(ingCode, ingName);
