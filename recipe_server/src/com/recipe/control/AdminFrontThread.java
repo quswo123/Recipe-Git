@@ -1,7 +1,14 @@
 package com.recipe.control;
 
-public class AdminFrontThread implements Runnable{
+import java.net.Socket;
 
+public class AdminFrontThread implements Runnable{
+	private Socket client;
+	
+	public AdminFrontThread(Socket s) {
+		client = s;
+	}
+	
 	@Override
 	public void run() {
 		
