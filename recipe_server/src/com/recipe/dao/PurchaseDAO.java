@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.recipe.exception.AddException;
@@ -19,9 +20,9 @@ import com.recipe.vo.Review;
 public class PurchaseDAO {
 	/**
 	 * 나의 구매내역 보기 및 상세보기
-	 * @param customerId
-	 * @return list
-	 * @throws FindException
+	 * @param 현재 사용자의 ID를 받아온다
+	 * @return 구매리스트 반환
+	 * @throws 오류발생시 findException처리
 	 */
 	public List<Purchase> selectById(String customerId) throws FindException{
 		Connection con = null;
@@ -34,6 +35,7 @@ public class PurchaseDAO {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		//나의 구매내역을 가져오는 query문
 		String detailSQL = "select \r\n" + 
 				"    p.purchase_date,\r\n" + 
 				"    pd.purchase_quantity,\r\n" + 
@@ -50,6 +52,8 @@ public class PurchaseDAO {
 				"    join recipe_info i on( pd.recipe_code = i.recipe_code ) where p.customer_id=?";
 		try {
 			ps = con.prepareStatement(detailSQL);
+			
+			//현재 아이디를 받아온다
 			ps.setString(1,customerId);
 			
 			rs = ps.executeQuery();
@@ -58,24 +62,30 @@ public class PurchaseDAO {
 				RecipeInfo r = new RecipeInfo();
 				PurchaseDetail pd = new PurchaseDetail();
 				
+				//레시피정보 가져오기
 				r.setRecipeCode(rs.getInt("recipe_code"));
 				r.setRecipeName(rs.getString("recipe_name"));
 				r.setRecipeSumm(rs.getString("recipe_summ"));
 				r.setRecipePrice(rs.getDouble("recipe_price"));
 				r.setRecipeProcess(rs.getString("recipe_process"));
+				
+				//Purchasedetail에 recipeInfo담아
 				pd.setRecipeInfo(r);
-				
 				pd.setPurchaseDetailQuantity(rs.getInt("purchase_quantity"));
-				p.setPurchaseDetail(pd);
 				
+				//Purchase에 Purchasedetail담고
+				p.setPurchaseDetail(pd);
 				p.setPurchaseDate(rs.getDate("purchase_date"));
 				
+				//Purchase list에 담는다
 				list.add(p);
 			}
+			//list가 0일때 예외발생(목록이 없습니다)
 			if(list.size()==0) {
 				throw new FindException("구매내역이 없습니다");
 			}
 			
+			//purchase list 반환
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -88,7 +98,8 @@ public class PurchaseDAO {
 	
 	/**
 	 * 나의 구매하기
-	 * @param p
+	 * @param 구매테이블에 추가
+	 * purchase테이블에 시퀀스를 생성하여 purchase_code는 자동으로 1씩 증가
 	 */
 	public void insert(Purchase p) throws AddException{
 		Connection con = null;
@@ -100,17 +111,24 @@ public class PurchaseDAO {
 			e.printStackTrace();
 		}
 		
+		//purchase테이블에서 추가
 		String insertSQL="INSERT INTO PURCHASE VALUES (PURCHASE_SEQ.NEXTVAL,?,SYSDATE)";
+		//purchaseDetail에서 현재 시퀀스로 받아 추가
 		String insertSQL2="INSERT INTO PURCHASE_DETAIL VALUES(PURCHASE_SEQ.CURRVAL,?,?)";
 		
 		try {
 			ps = con.prepareStatement(insertSQL);
-			ps = con.prepareStatement(insertSQL2);
 			
+			//현재 사용자ID를 추가
 			ps.setString(1, p.getCustomerId());
 			
-			ps.setInt(2, p.getPurchaseDetail().getRecipeInfo().getRecipeCode());
-			ps.setInt(3, p.getPurchaseDetail().getPurchaseDetailQuantity());
+			ps.executeUpdate();
+			
+			//위 쿼리문을 PurchaseDetail에 추가
+			ps = con.prepareStatement(insertSQL2);
+			
+			ps.setInt(1, p.getPurchaseDetail().getRecipeInfo().getRecipeCode());
+			ps.setInt(2, p.getPurchaseDetail().getPurchaseDetailQuantity());
 			
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -118,23 +136,6 @@ public class PurchaseDAO {
 			throw new AddException(e.getMessage());
 		} finally {
 			MyConnection.close(ps, con);
-		}
-	}
-	
-	
-	public static void main(String[] args) {
-		PurchaseDAO d = new PurchaseDAO();
-		try {
-			List<Purchase> list = d.selectById("tester");
-			for(Purchase pp : list) {
-				System.out.println(pp.getPurchaseDate());
-				System.out.println(pp.getPurchaseDetail().getPurchaseDetailQuantity());
-				System.out.println(pp.getPurchaseDetail().getRecipeInfo().getRecipeName());
-			}
-			
-		} catch (FindException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 	
