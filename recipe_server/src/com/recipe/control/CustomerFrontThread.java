@@ -1,5 +1,10 @@
 package com.recipe.control;
 
-public class CustomerFrontThread {
+public class CustomerFrontThread implements Runnable{
+
+	@Override
+	public void run() {
+		
+	}
 
 }

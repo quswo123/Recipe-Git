@@ -1,5 +1,10 @@
 package com.recipe.control;
 
-public class RdFrontThread {
+public class RdFrontThread implements Runnable{
+
+	@Override
+	public void run() {
+		
+	}
 
 }

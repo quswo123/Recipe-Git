@@ -6,4 +6,8 @@
 <fullyQualifiedTypeName name="com.recipe.vo.Favorite"/>
 <fullyQualifiedTypeName name="com.recipe.vo.Ingredient"/>
 <fullyQualifiedTypeName name="com.recipe.vo.Point"/>
+<fullyQualifiedTypeName name="java.lang.Runnable"/>
+<fullyQualifiedTypeName name="com.recipe.control.CustomerAcceptThread"/>
+<fullyQualifiedTypeName name="com.recipe.control.RdAcceptThread"/>
+<fullyQualifiedTypeName name="java.net.ServerSocket"/>
 </qualifiedTypeNameHistroy>
