@@ -1,5 +1,16 @@
 package com.recipe.control;
 
-public class CustomerFrontThread {
+import java.net.Socket;
+
+public class CustomerFrontThread implements Runnable{
+	private Socket client;
+	
+	public CustomerFrontThread(Socket s) {
+		client = s;
+	}
+	@Override
+	public void run() {
+		
+	}
 
 }
